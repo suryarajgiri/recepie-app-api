@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        DEV: "true"  # Pass build-time arguments
+    ports:
+      - "8000:8000"  # Map container port 8000 to host port 8000
+    volumes:
+      - ./app:/app  # Mount the local app directory to the container
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"  # Start the Django dev server
+    environment:
+      DEBUG: "true"  # Example environment variable
+      ALLOWED_HOSTS: "0.0.0.0,localhost"  # Add more as needed
