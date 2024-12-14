@@ -52,6 +52,9 @@ ARG DEV=false
 RUN apk add --no-cache gcc musl-dev libffi-dev && \
     python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .temp-build-deps \
+        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ "$DEV" = "true" ]; then /py/bin/pip install -r /tmp/requirements.dev.txt flake8; fi && \
     rm -rf /tmp && \
